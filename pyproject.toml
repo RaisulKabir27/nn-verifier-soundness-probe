@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "verifier_probe"
+version = "0.1.0"
+description = "Adversarial probing + intermediate-state dumping for the alpha-beta-CROWN DNN verifier"
+readme = "README.md"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "torch==2.11.0",
+    "numpy==2.4.6",
+    "appdirs==1.4.4",
+    "tqdm==4.70.1",
+    "packaging==26.3",
+    "graphviz==0.21",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest==9.1.1",
+]
+
+[tool.setuptools]
+packages = ["verifier_probe"]

@@ -1,0 +1,41 @@
+﻿(a) pre-ReLU analysis: global_min_preact +9.6535 at neuron 4 -> all_active=True (net is affine on X)
+(b) calibration [calibrated]: adv_boundary tau1-tau0=8.94e-08 (<1e-07), safe_boundary tau1-tau0=5.96e-08
+    fp_gap (straddle-window width, NOT tau1-tau0) = +0.9725  -> out_bias=-2.48626
+    at calibrated bias: CROWN_lb=+4.8626e-01 (>=0), fwd_margin=-4.0000e+00 (<0)
+
+[certify] verdict=safe  margin_lb=+4.862608e-01  (CROWN, float32)
+
+[attack] logs:
+{
+  "verifier_claim": {
+    "verdict": "safe",
+    "margin_lb": 0.4862607717514038,
+    "per_spec_lb": [
+      0.4862607717514038
+    ],
+    "method": "CROWN",
+    "dtype": "float32"
+  },
+  "model_real_output": {
+    "logits_float32": [
+      57948988.0,
+      57949012.0
+    ],
+    "margin_float32": -24.0,
+    "margin_float64": 0.5590752884745598,
+    "argmax_float32": 1,
+    "genuine_misprediction": true
+  },
+  "soundness_violation": true,
+  "explanation": "verifier certified SAFE (margin_lb>=0) but the float32 forward margin at adv_x is <0 => the float32 certificate is unsound",
+  "float64_control": "violation vanishes in float64 (margin_float64>=0) => pure floating-point gap, not a real counterexample"
+}
+search trajectory (first/last): ('corner', -4.0) ('step24', -24.0)
+
+SOUNDNESS VIOLATION FOUND: True
+
+[prober] trace keys: ['schema_version', 'verifier', 'method', 'dtype', 'input', 'layers', 'output_linear_bounds', 'certified_margin_lb', 'alpha_slopes', 'notes']
+  layers dumped: [('/0', 'BoundInput', [1, 50]), ('/input', 'BoundLinear', [1, 64]), ('/7', 'BoundLinear', [1, 2])]
+  output_linear_bounds.lA shape: [1, 1, 50]
+  certified_margin_lb: [0.26987797021865845]
+  full trace -> quickstart_trace.json
